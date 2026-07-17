@@ -1,6 +1,8 @@
 services:
   proxy:
-    image: envoyproxy/envoy:v1.30-latest
+    build:
+      context: ./docker/envoy
+      dockerfile: Dockerfile.coolify
     restart: unless-stopped
     depends_on:
       server:
@@ -8,9 +10,9 @@ services:
       webapp:
         condition: service_started
     expose:
-      - "80"
-    volumes:
-      - ./docker/envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+      - '80'
+  volumes:
+    - ./docker/envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
 
   webapp:
     image: bigcapitalhq/webapp:${BIGCAPITAL_VERSION:-v0.25.23}
