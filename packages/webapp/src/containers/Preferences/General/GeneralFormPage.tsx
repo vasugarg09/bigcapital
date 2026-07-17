@@ -41,9 +41,16 @@ function GeneralFormPageInner({
   }, [changePreferencesPageTitle]);
 
   // Initial values.
+  const metadata = organization.metadata ?? {};
+
   const initialValues = {
     ...defaultValues,
-    ...transformToForm(organization.metadata, defaultValues),
+    ...transformToForm(metadata, defaultValues),
+
+    base_currency: metadata.baseCurrency ?? '',
+    fiscal_year: metadata.fiscalYear ?? '',
+    date_format: metadata.dateFormat ?? '',
+    tax_number: metadata.taxNumber ?? '',
   };
   // Handle the form submit.
   const handleFormSubmit = (values, { setSubmitting, resetForm }) => {
@@ -71,6 +78,7 @@ function GeneralFormPageInner({
 
   return (
     <Formik
+      enableReinitialize
       initialValues={initialValues}
       validationSchema={PreferencesGeneralSchema}
       onSubmit={handleFormSubmit}

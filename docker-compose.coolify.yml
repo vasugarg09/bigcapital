@@ -13,7 +13,9 @@ services:
       - "80"
 
   webapp:
-    image: bigcapitalhq/webapp:${BIGCAPITAL_VERSION:-v0.25.23}
+    build:
+      context: .
+      dockerfile: packages/webapp/Dockerfile
     restart: unless-stopped
 
   server:
