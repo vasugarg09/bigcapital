@@ -10,9 +10,7 @@ services:
       webapp:
         condition: service_started
     expose:
-      - '80'
-  volumes:
-    - ./docker/envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+      - "80"
 
   webapp:
     image: bigcapitalhq/webapp:${BIGCAPITAL_VERSION:-v0.25.23}
